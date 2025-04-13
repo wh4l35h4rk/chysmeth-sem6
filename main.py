@@ -1,7 +1,27 @@
-def 
+import numpy as np
 
-# Press the green button in the gutter to run the script.
+
+def p(x):
+    return 1
+
+def q(x):
+    return -1
+
+def f(x):
+    return -x
+
+
+def u0():
+    return 1
+
+def u1():
+    return np.exp(1) + 1
+
+def phi(x, k):
+    return np.exp(x) + (k + 1)
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    print(phi(0, 0), u0())
+    print(phi(1, 0), u1())
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
