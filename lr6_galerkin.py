@@ -32,14 +32,9 @@ if __name__ == '__main__':
 
     phi_net = []
     for i in range(1, N - 1):
-        # phi = sym.Piecewise((1 + t[i], (t[i] >= -1) & (t[i] <= 0)),
-        #                      (1 - t[i], (0 > t[i]) & (t[i] <= 1)),
-        #                      (0, True))
         phi = 1 - x ** (2 * k[i])
         phi_net.append(phi)
 
-
-    # u = sum([v[i] * phi_net[i] for i in range(0, M)]) + u_gran
     u = sum([v[i] * phi_net[i] for i in range(0, M)])
 
     du2 = sym.diff(u, x, x)
@@ -47,17 +42,6 @@ if __name__ == '__main__':
 
     system = [sym.integrate(phi_net[i] * R, (x, a, b)) for i in range(M)]
     true_v = sym.linsolve(system, tuple(v))
-
-
-    # left = [-(v[i - 1] - 2 * v[i] + v[i + 1]) / h**2 for i in range (M)]
-    # 
-    # integral_functions = [f * phi_net[i] for i in range(M)]
-    # Js = [sym.integrate(integral_functions[i], (x, a, b)) for i in range(M)]
-    # 
-    # right = [1/h * Js[i] for i in range(M)]
-    # 
-    # system = [left[i] - right[i] for i in range(M)]
-    # true_v = sym.linsolve(system, tuple(v))
 
     solution = list(true_v)[0]
     func = sum([solution[i] * phi_net[i] for i in range(M)]) + u_gran
